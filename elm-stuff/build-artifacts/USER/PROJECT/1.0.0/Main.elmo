@@ -1,0 +1,297 @@
+Elm.Main = Elm.Main || {};
+Elm.Main.make = function (_elm) {
+   "use strict";
+   _elm.Main = _elm.Main || {};
+   if (_elm.Main.values)
+   return _elm.Main.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Main",
+   $Basics = Elm.Basics.make(_elm),
+   $Color = Elm.Color.make(_elm),
+   $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $Keyboard = Elm.Keyboard.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Text = Elm.Text.make(_elm),
+   $Time = Elm.Time.make(_elm),
+   $Window = Elm.Window.make(_elm);
+   var view = F2(function (_v0,
+   _v1) {
+      return function () {
+         return function () {
+            switch (_v0.ctor)
+            {case "_Tuple2":
+               return function () {
+                    var knob = $Graphics$Collage.outlined($Graphics$Collage.defaultLine)(A2($Graphics$Collage.ngon,
+                    6,
+                    40));
+                    var $ = A2($Maybe.withDefault,
+                    {ctor: "_Tuple2"
+                    ,_0: 0.0
+                    ,_1: 0.0},
+                    $List.head(_v1.locations)),
+                    x = $._0,
+                    y = $._1;
+                    var $ = _v1.size,
+                    bw = $._0,
+                    bh = $._1;
+                    return A3($Graphics$Collage.collage,
+                    _v0._0,
+                    _v0._1,
+                    _L.fromArray([$Graphics$Collage.outlined($Graphics$Collage.defaultLine)(A2($Graphics$Collage.rect,
+                                 bw,
+                                 bh))
+                                 ,$Graphics$Collage.traced(_v1.style)($Graphics$Collage.path(_v1.locations))
+                                 ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                         ,_0: x
+                                                         ,_1: y})($Graphics$Collage.filled($Color.red)($Graphics$Collage.circle(5)))
+                                 ,$Graphics$Collage.rotate(0 - x / bw * 2 * $Basics.pi)($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                               ,_0: (0 - bw) / 2 + 30.0
+                                                                                                               ,_1: (0 - bh) / 2 - 50.0})($Graphics$Collage.group(_L.fromArray([knob
+                                                                                                                                                                               ,$Graphics$Collage.toForm($Graphics$Element.centered($Text.fromString("H")))]))))
+                                 ,$Graphics$Collage.rotate(0 - y / bh * 2 * $Basics.pi)($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                               ,_0: bw / 2 - 30.0
+                                                                                                               ,_1: (0 - bh) / 2 - 50.0})($Graphics$Collage.group(_L.fromArray([knob
+                                                                                                                                                                               ,$Graphics$Collage.toForm($Graphics$Element.centered($Text.fromString("V")))]))))]));
+                 }();}
+            _U.badCase($moduleName,
+            "between lines 61 and 80");
+         }();
+      }();
+   });
+   var accumulateInBound = F3(function (_v6,
+   _v7,
+   _v8) {
+      return function () {
+         switch (_v8.ctor)
+         {case "_Tuple2":
+            return function () {
+                 switch (_v7.ctor)
+                 {case "Move":
+                    return function () {
+                         switch (_v6.ctor)
+                         {case "_Tuple2":
+                            return function () {
+                                 var _ = A2($Graphics$Collage.rect,
+                                 _v6._0,
+                                 _v6._1);
+                                 var hih = function () {
+                                    switch (_.ctor)
+                                    {case "::": switch (_._0.ctor)
+                                         {case "_Tuple2":
+                                            switch (_._1.ctor)
+                                              {case "::":
+                                                 switch (_._1._1.ctor)
+                                                   {case "::":
+                                                      switch (_._1._1._0.ctor)
+                                                        {case "_Tuple2":
+                                                           switch (_._1._1._1.ctor)
+                                                             {case "::":
+                                                                switch (_._1._1._1._1.ctor)
+                                                                  {case "[]":
+                                                                     return _._1._1._0._1;}
+                                                                  break;}
+                                                             break;}
+                                                        break;}
+                                                   break;}
+                                              break;}
+                                         break;}
+                                    _U.badCase($moduleName,
+                                    "on line 38, column 38 to 46");
+                                 }();
+                                 var hiw = function () {
+                                    switch (_.ctor)
+                                    {case "::": switch (_._0.ctor)
+                                         {case "_Tuple2":
+                                            switch (_._1.ctor)
+                                              {case "::":
+                                                 switch (_._1._1.ctor)
+                                                   {case "::":
+                                                      switch (_._1._1._0.ctor)
+                                                        {case "_Tuple2":
+                                                           switch (_._1._1._1.ctor)
+                                                             {case "::":
+                                                                switch (_._1._1._1._1.ctor)
+                                                                  {case "[]":
+                                                                     return _._1._1._0._0;}
+                                                                  break;}
+                                                             break;}
+                                                        break;}
+                                                   break;}
+                                              break;}
+                                         break;}
+                                    _U.badCase($moduleName,
+                                    "on line 38, column 38 to 46");
+                                 }();
+                                 var loh = function () {
+                                    switch (_.ctor)
+                                    {case "::": switch (_._0.ctor)
+                                         {case "_Tuple2":
+                                            switch (_._1.ctor)
+                                              {case "::":
+                                                 switch (_._1._1.ctor)
+                                                   {case "::":
+                                                      switch (_._1._1._0.ctor)
+                                                        {case "_Tuple2":
+                                                           switch (_._1._1._1.ctor)
+                                                             {case "::":
+                                                                switch (_._1._1._1._1.ctor)
+                                                                  {case "[]":
+                                                                     return _._0._1;}
+                                                                  break;}
+                                                             break;}
+                                                        break;}
+                                                   break;}
+                                              break;}
+                                         break;}
+                                    _U.badCase($moduleName,
+                                    "on line 38, column 38 to 46");
+                                 }();
+                                 var low = function () {
+                                    switch (_.ctor)
+                                    {case "::": switch (_._0.ctor)
+                                         {case "_Tuple2":
+                                            switch (_._1.ctor)
+                                              {case "::":
+                                                 switch (_._1._1.ctor)
+                                                   {case "::":
+                                                      switch (_._1._1._0.ctor)
+                                                        {case "_Tuple2":
+                                                           switch (_._1._1._1.ctor)
+                                                             {case "::":
+                                                                switch (_._1._1._1._1.ctor)
+                                                                  {case "[]":
+                                                                     return _._0._0;}
+                                                                  break;}
+                                                             break;}
+                                                        break;}
+                                                   break;}
+                                              break;}
+                                         break;}
+                                    _U.badCase($moduleName,
+                                    "on line 38, column 38 to 46");
+                                 }();
+                                 return {ctor: "_Tuple2"
+                                        ,_0: A3($Basics.clamp,
+                                        low,
+                                        hiw,
+                                        _v8._0 + $Basics.toFloat(5 * _v7._0.x))
+                                        ,_1: A3($Basics.clamp,
+                                        loh,
+                                        hih,
+                                        _v8._1 + $Basics.toFloat(5 * _v7._0.y))};
+                              }();}
+                         _U.badCase($moduleName,
+                         "between lines 37 and 40");
+                      }();}
+                 _U.badCase($moduleName,
+                 "between lines 37 and 40");
+              }();}
+         _U.badCase($moduleName,
+         "between lines 37 and 40");
+      }();
+   });
+   var update = F2(function (input,
+   _v69) {
+      return function () {
+         return function () {
+            switch (input.ctor)
+            {case "Move":
+               return function () {
+                    var position = A2($Maybe.withDefault,
+                    {ctor: "_Tuple2"
+                    ,_0: 0.0
+                    ,_1: 0.0},
+                    $List.head(_v69.locations));
+                    var next = A3(accumulateInBound,
+                    _v69.size,
+                    input,
+                    position);
+                    return _U.eq(next,
+                    position) ? _v69 : _U.replace([["locations"
+                                                   ,A2($List._op["::"],
+                                                   next,
+                                                   _v69.locations)]],
+                    _v69);
+                 }();
+               case "Nothing": return _v69;
+               case "Undo":
+               return _U.replace([["locations"
+                                  ,A2($Maybe.withDefault,
+                                  _L.fromArray([{ctor: "_Tuple2"
+                                                ,_0: 0.0
+                                                ,_1: 0.0}]),
+                                  $List.tail(_v69.locations))]],
+                 _v69);}
+            _U.badCase($moduleName,
+            "between lines 44 and 57");
+         }();
+      }();
+   });
+   var Nothing = {ctor: "Nothing"};
+   var Undo = {ctor: "Undo"};
+   var Move = function (a) {
+      return {ctor: "Move",_0: a};
+   };
+   var SketchBoard = F3(function (a,
+   b,
+   c) {
+      return {_: {}
+             ,locations: b
+             ,size: a
+             ,style: c};
+   });
+   var tick = $Time.fps(30);
+   var input = $Signal.sampleOn(tick)(A2($Signal.merge,
+   A2($Signal.map,
+   Move,
+   A2($Signal.merge,
+   $Keyboard.arrows,
+   $Keyboard.wasd)),
+   A2($Signal.map,
+   function (s) {
+      return s ? Undo : Nothing;
+   },
+   $Keyboard.space)));
+   var marker = _U.replace([["cap"
+                            ,$Graphics$Collage.Round]
+                           ,["join"
+                            ,$Graphics$Collage.Smooth]
+                           ,["width",5]],
+   $Graphics$Collage.defaultLine);
+   var initialBoard = {_: {}
+                      ,locations: _L.fromArray([{ctor: "_Tuple2"
+                                                ,_0: 0.0
+                                                ,_1: 0.0}])
+                      ,size: {ctor: "_Tuple2"
+                             ,_0: 400.0
+                             ,_1: 400.0}
+                      ,style: marker};
+   var main = A3($Signal.map2,
+   view,
+   $Window.dimensions,
+   A3($Signal.foldp,
+   update,
+   initialBoard,
+   input));
+   _elm.Main.values = {_op: _op
+                      ,main: main
+                      ,marker: marker
+                      ,tick: tick
+                      ,SketchBoard: SketchBoard
+                      ,initialBoard: initialBoard
+                      ,Move: Move
+                      ,Undo: Undo
+                      ,Nothing: Nothing
+                      ,input: input
+                      ,accumulateInBound: accumulateInBound
+                      ,update: update
+                      ,view: view};
+   return _elm.Main.values;
+};
