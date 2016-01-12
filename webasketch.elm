@@ -77,4 +77,6 @@ view (w,h) {size, locations, style} =
       , group [knob, fromString "V" |> centered |> toForm]
       |> move (( bw/2) - 30.0, (-bh/2) - 50.0)
       |> rotate -((y / bh) * 2 * pi)
+      , (toForm << centered) (fromString "Beta Testing graciously provided by JoAnn Nam.")
+      |> move (0.0, (-bh/2) - 100.0)
       ]

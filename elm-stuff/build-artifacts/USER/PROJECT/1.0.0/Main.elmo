@@ -58,10 +58,15 @@ Elm.Main.make = function (_elm) {
                                  ,$Graphics$Collage.rotate(0 - y / bh * 2 * $Basics.pi)($Graphics$Collage.move({ctor: "_Tuple2"
                                                                                                                ,_0: bw / 2 - 30.0
                                                                                                                ,_1: (0 - bh) / 2 - 50.0})($Graphics$Collage.group(_L.fromArray([knob
-                                                                                                                                                                               ,$Graphics$Collage.toForm($Graphics$Element.centered($Text.fromString("V")))]))))]));
+                                                                                                                                                                               ,$Graphics$Collage.toForm($Graphics$Element.centered($Text.fromString("V")))]))))
+                                 ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                         ,_0: 0.0
+                                                         ,_1: (0 - bh) / 2 - 100.0})(function ($) {
+                                    return $Graphics$Collage.toForm($Graphics$Element.centered($));
+                                 }($Text.fromString("Beta Testing graciously provided by JoAnn Nam.")))]));
                  }();}
             _U.badCase($moduleName,
-            "between lines 61 and 80");
+            "between lines 61 and 82");
          }();
       }();
    });
