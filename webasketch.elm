@@ -7,7 +7,7 @@ import Maybe exposing (withDefault)
 import Text exposing (fromString)
 import Signal
 import Keyboard
---import Mouse
+import Mouse
 import Window
 
 main : Signal Element
@@ -17,20 +17,34 @@ main =
 marker = { defaultLine | cap <- Round, join <- Smooth, width <- 5 }
 tick = fps 30
 
+toRelative : (Int,Int) -> (Int,Int) -> (Float,Float)
+toRelative (w,h) (x,y) =
+  (toFloat x - toFloat w/2, toFloat h/2 - toFloat y)
+
+position : Signal (Float, Float)
+position =
+  Signal.map2 toRelative Window.dimensions Mouse.position
+
+--sigfilt : Signal Bool -> a -> Signal a -> Signal a
+sigfilt filt default sig =
+  Signal.map snd <| Signal.filter (\(b,_) -> b) (True,default) (Signal.map2 (,) filt sig)
+
 type alias SketchBoard =
   { size : (Float, Float)
   , locations : List (Float, Float)
   , style : LineStyle
   }
-initialBoard = {locations = [(0.0,0.0)], size = (400.0,400.0), style = marker}
+initialBoard = {locations = [], size = (400.0,400.0), style = marker}
 
-type Input = Move {x : Int, y : Int} | Undo | Nothing
+type Input = Point (Float, Float) | Move {x : Int, y : Int} | Undo | Nothing
 input : Signal Input
 input =
   Signal.sampleOn tick <|
-  Signal.merge 
-    (Signal.map Move (Signal.merge Keyboard.arrows Keyboard.wasd))
-    (Signal.map (\s -> if s then Undo else Nothing) Keyboard.space)
+  Signal.mergeMany
+  [ (Signal.map Move (Signal.merge Keyboard.arrows Keyboard.wasd))
+  , (Signal.map (\s -> if s then Undo else Nothing) Keyboard.space)
+  , (Signal.map Point (sigfilt Mouse.isDown (0,0) position))
+    ]
 
 accumulateInBound : (Float, Float) -> Input -> (Float, Float) -> (Float, Float)  
 accumulateInBound (w,h) (Move {x,y}) (px,py) =
@@ -42,6 +56,19 @@ accumulateInBound (w,h) (Move {x,y}) (px,py) =
 update : Input -> SketchBoard -> SketchBoard
 update input ({size, locations} as sketchboard) =
   case input of
+    Point (x,y) ->
+      let
+        next = (x,y)
+        (px,py) = withDefault (0,0) (head locations)
+        r = fst (toPolar (x - px, y - py))
+        (bw,bh) = size
+      in
+        if (r < 5) then
+          sketchboard
+        else if ((x < -bw/2 || bw/2 < x || y < -bh/2 || bh/2 < y )) then
+          sketchboard
+        else
+          {sketchboard | locations <- next :: locations}
     Move {x,y} ->
       let
         position = (withDefault (0.0,0.0) (head locations))
@@ -52,7 +79,7 @@ update input ({size, locations} as sketchboard) =
         else
           {sketchboard | locations <- next :: locations}
     Undo ->
-      {sketchboard | locations <- withDefault [(0.0,0.0)] (tail  locations)}
+      {sketchboard | locations <- withDefault [] (tail  locations)}
     Nothing ->
       sketchboard
 

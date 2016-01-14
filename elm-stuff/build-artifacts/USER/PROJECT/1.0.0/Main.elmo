@@ -16,6 +16,7 @@ Elm.Main.make = function (_elm) {
    $Keyboard = Elm.Keyboard.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
+   $Mouse = Elm.Mouse.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Text = Elm.Text.make(_elm),
@@ -66,7 +67,7 @@ Elm.Main.make = function (_elm) {
                                  }($Text.fromString("Beta Testing graciously provided by JoAnn Nam.")))]));
                  }();}
             _U.badCase($moduleName,
-            "between lines 61 and 82");
+            "between lines 88 and 109");
          }();
       }();
    });
@@ -108,7 +109,7 @@ Elm.Main.make = function (_elm) {
                                               break;}
                                          break;}
                                     _U.badCase($moduleName,
-                                    "on line 38, column 38 to 46");
+                                    "on line 52, column 38 to 46");
                                  }();
                                  var hiw = function () {
                                     switch (_.ctor)
@@ -132,7 +133,7 @@ Elm.Main.make = function (_elm) {
                                               break;}
                                          break;}
                                     _U.badCase($moduleName,
-                                    "on line 38, column 38 to 46");
+                                    "on line 52, column 38 to 46");
                                  }();
                                  var loh = function () {
                                     switch (_.ctor)
@@ -156,7 +157,7 @@ Elm.Main.make = function (_elm) {
                                               break;}
                                          break;}
                                     _U.badCase($moduleName,
-                                    "on line 38, column 38 to 46");
+                                    "on line 52, column 38 to 46");
                                  }();
                                  var low = function () {
                                     switch (_.ctor)
@@ -180,7 +181,7 @@ Elm.Main.make = function (_elm) {
                                               break;}
                                          break;}
                                     _U.badCase($moduleName,
-                                    "on line 38, column 38 to 46");
+                                    "on line 52, column 38 to 46");
                                  }();
                                  return {ctor: "_Tuple2"
                                         ,_0: A3($Basics.clamp,
@@ -193,13 +194,13 @@ Elm.Main.make = function (_elm) {
                                         _v8._1 + $Basics.toFloat(5 * _v7._0.y))};
                               }();}
                          _U.badCase($moduleName,
-                         "between lines 37 and 40");
+                         "between lines 51 and 54");
                       }();}
                  _U.badCase($moduleName,
-                 "between lines 37 and 40");
+                 "between lines 51 and 54");
               }();}
          _U.badCase($moduleName,
-         "between lines 37 and 40");
+         "between lines 51 and 54");
       }();
    });
    var update = F2(function (input,
@@ -226,16 +227,44 @@ Elm.Main.make = function (_elm) {
                     _v69);
                  }();
                case "Nothing": return _v69;
+               case "Point":
+               switch (input._0.ctor)
+                 {case "_Tuple2":
+                    return function () {
+                         var $ = _v69.size,
+                         bw = $._0,
+                         bh = $._1;
+                         var $ = A2($Maybe.withDefault,
+                         {ctor: "_Tuple2",_0: 0,_1: 0},
+                         $List.head(_v69.locations)),
+                         px = $._0,
+                         py = $._1;
+                         var r = $Basics.fst($Basics.toPolar({ctor: "_Tuple2"
+                                                             ,_0: input._0._0 - px
+                                                             ,_1: input._0._1 - py}));
+                         var next = {ctor: "_Tuple2"
+                                    ,_0: input._0._0
+                                    ,_1: input._0._1};
+                         return _U.cmp(r,
+                         5) < 0 ? _v69 : _U.cmp(input._0._0,
+                         (0 - bw) / 2) < 0 || (_U.cmp(bw / 2,
+                         input._0._0) < 0 || (_U.cmp(input._0._1,
+                         (0 - bh) / 2) < 0 || _U.cmp(bh / 2,
+                         input._0._1) < 0)) ? _v69 : _U.replace([["locations"
+                                                                 ,A2($List._op["::"],
+                                                                 next,
+                                                                 _v69.locations)]],
+                         _v69);
+                      }();}
+                 break;
                case "Undo":
                return _U.replace([["locations"
                                   ,A2($Maybe.withDefault,
-                                  _L.fromArray([{ctor: "_Tuple2"
-                                                ,_0: 0.0
-                                                ,_1: 0.0}]),
+                                  _L.fromArray([]),
                                   $List.tail(_v69.locations))]],
                  _v69);}
             _U.badCase($moduleName,
-            "between lines 44 and 57");
+            "between lines 58 and 84");
          }();
       }();
    });
@@ -243,6 +272,9 @@ Elm.Main.make = function (_elm) {
    var Undo = {ctor: "Undo"};
    var Move = function (a) {
       return {ctor: "Move",_0: a};
+   };
+   var Point = function (a) {
+      return {ctor: "Point",_0: a};
    };
    var SketchBoard = F3(function (a,
    b,
@@ -252,18 +284,72 @@ Elm.Main.make = function (_elm) {
              ,size: a
              ,style: c};
    });
+   var sigfilt = F3(function (filt,
+   $default,
+   sig) {
+      return $Signal.map($Basics.snd)(A3($Signal.filter,
+      function (_v76) {
+         return function () {
+            switch (_v76.ctor)
+            {case "_Tuple2":
+               return _v76._0;}
+            _U.badCase($moduleName,
+            "on line 30, column 46 to 47");
+         }();
+      },
+      {ctor: "_Tuple2"
+      ,_0: true
+      ,_1: $default},
+      A3($Signal.map2,
+      F2(function (v0,v1) {
+         return {ctor: "_Tuple2"
+                ,_0: v0
+                ,_1: v1};
+      }),
+      filt,
+      sig)));
+   });
+   var toRelative = F2(function (_v80,
+   _v81) {
+      return function () {
+         switch (_v81.ctor)
+         {case "_Tuple2":
+            return function () {
+                 switch (_v80.ctor)
+                 {case "_Tuple2":
+                    return {ctor: "_Tuple2"
+                           ,_0: $Basics.toFloat(_v81._0) - $Basics.toFloat(_v80._0) / 2
+                           ,_1: $Basics.toFloat(_v80._1) / 2 - $Basics.toFloat(_v81._1)};}
+                 _U.badCase($moduleName,
+                 "on line 22, column 4 to 52");
+              }();}
+         _U.badCase($moduleName,
+         "on line 22, column 4 to 52");
+      }();
+   });
+   var position = A3($Signal.map2,
+   toRelative,
+   $Window.dimensions,
+   $Mouse.position);
    var tick = $Time.fps(30);
-   var input = $Signal.sampleOn(tick)(A2($Signal.merge,
-   A2($Signal.map,
-   Move,
-   A2($Signal.merge,
-   $Keyboard.arrows,
-   $Keyboard.wasd)),
-   A2($Signal.map,
-   function (s) {
-      return s ? Undo : Nothing;
-   },
-   $Keyboard.space)));
+   var input = $Signal.sampleOn(tick)($Signal.mergeMany(_L.fromArray([A2($Signal.map,
+                                                                     Move,
+                                                                     A2($Signal.merge,
+                                                                     $Keyboard.arrows,
+                                                                     $Keyboard.wasd))
+                                                                     ,A2($Signal.map,
+                                                                     function (s) {
+                                                                        return s ? Undo : Nothing;
+                                                                     },
+                                                                     $Keyboard.space)
+                                                                     ,A2($Signal.map,
+                                                                     Point,
+                                                                     A3(sigfilt,
+                                                                     $Mouse.isDown,
+                                                                     {ctor: "_Tuple2"
+                                                                     ,_0: 0
+                                                                     ,_1: 0},
+                                                                     position))])));
    var marker = _U.replace([["cap"
                             ,$Graphics$Collage.Round]
                            ,["join"
@@ -271,9 +357,7 @@ Elm.Main.make = function (_elm) {
                            ,["width",5]],
    $Graphics$Collage.defaultLine);
    var initialBoard = {_: {}
-                      ,locations: _L.fromArray([{ctor: "_Tuple2"
-                                                ,_0: 0.0
-                                                ,_1: 0.0}])
+                      ,locations: _L.fromArray([])
                       ,size: {ctor: "_Tuple2"
                              ,_0: 400.0
                              ,_1: 400.0}
@@ -289,8 +373,12 @@ Elm.Main.make = function (_elm) {
                       ,main: main
                       ,marker: marker
                       ,tick: tick
+                      ,toRelative: toRelative
+                      ,position: position
+                      ,sigfilt: sigfilt
                       ,SketchBoard: SketchBoard
                       ,initialBoard: initialBoard
+                      ,Point: Point
                       ,Move: Move
                       ,Undo: Undo
                       ,Nothing: Nothing
